@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class ElevatorMovement : MonoBehaviour
     /// <summary>
 	/// The distance between two floors
 	/// </summary>
+    [Header("Elevator Logic")]
 	public Vector3 FloorDistance = Vector3.up;
     public float Speed = 1.0f;
     public int Floor = 0;
@@ -17,6 +19,13 @@ public class ElevatorMovement : MonoBehaviour
     private bool isMoving;
     private float moveDirection;
 
+    [Header("Buttons")]
+    [SerializeField]
+    private GameObject UpButton;
+    [SerializeField]
+    private GameObject DownButton;
+
+    public LayerMask layerMask;
 
     // Use this for initialization
     void Start()
@@ -24,18 +33,48 @@ public class ElevatorMovement : MonoBehaviour
         moveTransform = moveTransform ?? transform;
     }
 
+    private void PressButton()
+    {
+        Vector3 ScreenCenter = new Vector3(Screen.width / 2,Screen.height / 2, 0);
+
+        Debug.DrawRay(ScreenCenter, Vector3.forward * 100);
+        Ray ray = Camera.main.ScreenPointToRay(ScreenCenter);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+        {
+            Debug.Log("hit Collider: " + hit.collider.name);
+
+            if (hit.collider.gameObject.CompareTag("ButtonUp"))
+            {
+
+                StartMoveUp();
+            }
+            else if (hit.collider.gameObject.CompareTag("ButtonDown"))
+            {
+                StartMoveDown();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKey(KeyCode.E))
+        {
+            PressButton();
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            CallElevator();
-        }
-
         if (isMoving)
         {
             // elevator is moving
+            //close doors
             MoveElevator();
+        }
+        else
+        { 
+            //open doors
         }
     }
 
@@ -62,7 +101,7 @@ public class ElevatorMovement : MonoBehaviour
     /// <summary>
     /// Start moving up one floor
     /// </summary>
-    public void StartMoveUp()
+    private void StartMoveUp()
     {
         if (isMoving)
             return;
@@ -74,7 +113,7 @@ public class ElevatorMovement : MonoBehaviour
     /// <summary>
     /// Start moving down one floor
     /// </summary>
-    public void StartMoveDown()
+    private void StartMoveDown()
     {
         if (isMoving)
             return;
@@ -86,7 +125,7 @@ public class ElevatorMovement : MonoBehaviour
     /// <summary>
     /// Tell the elevator to move up or down
     /// </summary>
-    public void CallElevator()
+    private void CallElevator()
     {
         if (isMoving)
             return;
