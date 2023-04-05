@@ -110,7 +110,6 @@ public class ElevatorMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.transform.SetParent(gameObject.transform);
-           // other.gameObject.GetComponent<PlayerController>().jumpSpeed = 0;
         }
     }
 
@@ -119,7 +118,6 @@ public class ElevatorMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.transform.SetParent(null);
-            //other.gameObject.GetComponent<PlayerController>().jumpSpeed = 8;
         }
     }
 }
