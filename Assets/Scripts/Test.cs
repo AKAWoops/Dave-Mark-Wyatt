@@ -33,6 +33,10 @@ public class Test : MonoBehaviour
         Console.WriteLine("test test test");
         Console.WriteLine("test test test");
         Console.WriteLine("test test test");
-
+        Console.WriteLine("wyatt was hear");
+        Console.WriteLine("wyatt was hear");
+        Console.WriteLine("wyatt was hear");
+        Console.WriteLine("wyatt was hear");
+        Console.WriteLine("wyatt was hear");
     }
 }
