@@ -25,7 +25,7 @@ public class ElevatorMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(Input.GetKeyDown(KeyCode.T))
         {
@@ -103,5 +103,23 @@ public class ElevatorMovement : MonoBehaviour
             StartMoveDown();
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.transform.SetParent(gameObject.transform);
+           // other.gameObject.GetComponent<PlayerController>().jumpSpeed = 0;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.transform.SetParent(null);
+            //other.gameObject.GetComponent<PlayerController>().jumpSpeed = 8;
+        }
     }
 }
