@@ -18,6 +18,7 @@ public class Testv2 : MonoBehaviour
         Console.WriteLine("farking work cunt");
         Console.WriteLine("farking work cunt");
         Console.WriteLine("farking work cunt");
+        Console.WriteLine("Nova Was Here 2023");
     }
 
     // Update is called once per frame
