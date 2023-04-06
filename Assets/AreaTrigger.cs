@@ -7,11 +7,12 @@ public class AreaTrigger : MonoBehaviour
 {
     public string AreaNameText;
     public string AreaNumberText;
-
+    public bool AreaLocked;
 
     public CanvasGroup AreaUI;
     public TextMeshProUGUI AreaNumber;
     public TextMeshProUGUI AreaName;
+    public GameObject AreaLockedText;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,6 +20,12 @@ public class AreaTrigger : MonoBehaviour
         {
             AreaNumber.text = "Area " + AreaNumberText;
             AreaName.text = AreaNameText;
+
+            if(AreaLocked)
+                AreaLockedText.SetActive(true);
+            else
+                AreaLockedText.SetActive(false);
+
             ShowUI(AreaUI);
         }
     }
